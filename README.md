@@ -19,3 +19,17 @@ if (!message.channel.permissionsFor(message.guild.members.me).has(PermissionFlag
   return;
 }
 ```
+__leave all guilds by a specific username__
+```js
+const Guilds = client.guilds.cache.map(guild => guild.id);
+Guilds.forEach(async guildId => {
+  const guild = await client.guilds.cache.get(guildId);
+  const owner = await guild.fetchOwner();
+  if (owner.user.tag === 'Wumpus#0000') {
+    await guild.leave();
+    console.log(`Left guild ${guild.name} owned by ${owner.user.tag}`);
+  } else {
+    console.log(`Skipped guild ${guild.name} owned by ${owner.user.tag}`);
+  }
+});
+```
