@@ -33,3 +33,23 @@ Guilds.forEach(async guildId => {
   }
 });
 ```
+__is webhook valid?__ (true = yes, valid. false = no, not valid.)
+```js
+function testWebhook(webhookURL) {
+  return new Promise((resolve, reject) => {
+    const req = https.request(webhookURL, { method: 'HEAD' }, (res) => {
+      if (res.statusCode === 200) {
+        resolve(true);
+      } else {
+        resolve(false);
+      }
+    });
+
+    req.on('error', (err) => {
+      reject(err);
+    });
+
+    req.end();
+  });
+}
+```
